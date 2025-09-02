@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model clientEnterprise {
+  id                                String                   @id @default(uuid())
+  enterprise                        String
+  fieldExpertise                    String
+  colaboratorName                   String
+  colaboratorSurname                String
+  colaboratorEmail                  String  
+  position                          String
+  administrationPerception          String
+  personalFamilyRelationsComment    String
+  organizationalStructureDefined    Boolean
+  knowsMissionVisionCriticalFactors Boolean
+  educationLevel                    EducationLevel
+  managementAdjustsStructure        Boolean
+  hasPerformanceEvaluationPolicy    Boolean
+  hasHRManagementIndicators         Boolean
+  investsInTrainingPrograms         Boolean
+  performance360Evaluation          Performance360Evaluation
+  remunerationPolicyCompetitive     Boolean
+  performanceRewardExists           Boolean
+  managementExperience              ManagementExperience
+  goalsMethodology                  String?
+  hasClearCompetencies              Boolean
+  improvementSuggestions            String
+}
+
+enum EducationLevel {
+  ENSINO_FUNDAMENTAL
+  ENSINO_MEDIO
+  ENSINO_SUPERIOR
+}
+
+enum Performance360Evaluation {
+  YES
+  NO
+  NOT_APPLICABLE
+}
+
+enum ManagementExperience {
+  ONE_TO_FIVE_YEARS
+  SIX_TO_TEN_YEARS
+  MORE_THAN_TEN_YEARS
+}
