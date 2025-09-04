@@ -55,7 +55,7 @@ export class MailService {
 
     const mailOption = {
       from: emailSend,
-      to: 'levi.utima@gmail.com',
+      to: 'comercial@ncmconsultoria.com.br',
       subject: `Formulário de Diagnóstico Empresarial – ${enterprise} | Cliente: ${name} ${surname} (${email})`,
       text: `${link} - Acesse esta página para concluir o diagnóstico da empresa ${enterprise}`,
       html: `
