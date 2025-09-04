@@ -37,11 +37,11 @@ export class CreateEnterpriseDto {
 
   @ApiProperty({ description: 'Estrutura organizacional definida?' })
   @IsBoolean()
-  organizationalStructureDefined: boolean;
+  organizationalStructureDefined: string;
 
   @ApiProperty({ description: 'Conhece missão, visão e fatores críticos?' })
   @IsBoolean()
-  knowsMissionVisionCriticalFactors: boolean;
+  knowsMissionVisionCriticalFactors: string;
 
   @ApiProperty({ enum: EducationLevel })
   @IsEnum(EducationLevel)
@@ -49,19 +49,19 @@ export class CreateEnterpriseDto {
 
   @ApiProperty({ description: 'A gestão ajusta a estrutura conforme necessário?' })
   @IsBoolean()
-  managementAdjustsStructure: boolean;
+  managementAdjustsStructure: string;
 
   @ApiProperty({ description: 'Existe política de avaliação de desempenho?' })
   @IsBoolean()
-  hasPerformanceEvaluationPolicy: boolean;
+  hasPerformanceEvaluationPolicy: string;
 
   @ApiProperty({ description: 'Possui indicadores de gestão de RH?' })
   @IsBoolean()
-  hasHRManagementIndicators: boolean;
+  hasHRManagementIndicators: string;
 
   @ApiProperty({ description: 'Investe em programas de treinamento?' })
   @IsBoolean()
-  investsInTrainingPrograms: boolean;
+  investsInTrainingPrograms: string;
 
   @ApiProperty({ enum: Performance360Evaluation })
   @IsEnum(Performance360Evaluation)
@@ -69,11 +69,11 @@ export class CreateEnterpriseDto {
 
   @ApiProperty({ description: 'Política de remuneração competitiva?' })
   @IsBoolean()
-  remunerationPolicyCompetitive: boolean;
+  remunerationPolicyCompetitive: string;
 
   @ApiProperty({ description: 'Existe premiação por desempenho?' })
   @IsBoolean()
-  performanceRewardExists: boolean;
+  performanceRewardExists: string;
 
   @ApiProperty({ enum: ManagementExperience })
   @IsEnum(ManagementExperience)
@@ -86,7 +86,7 @@ export class CreateEnterpriseDto {
 
   @ApiProperty({ description: 'Existem competências claras?' })
   @IsBoolean()
-  hasClearCompetencies: boolean;
+  hasClearCompetencies: string;
 
   @ApiProperty({ description: 'Sugestões de melhoria' })
   @IsString()
