@@ -68,7 +68,7 @@ export class MailService {
     };
 
     try {
-      console.log('📧 Enviando email para:', 'levi.utima@gmail.com');
+      console.log('📧 Enviando email para:', 'comercial@ncmconsultoria.com.br');
       await transporter.sendMail(mailOption); 
       console.log('✅ Email enviado com sucesso!');
     } catch (error) {
