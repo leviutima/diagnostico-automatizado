@@ -23,19 +23,19 @@ model clientEnterprise {
   position                          String
   administrationPerception          String
   personalFamilyRelationsComment    String
-  organizationalStructureDefined    Boolean
-  knowsMissionVisionCriticalFactors Boolean
+  organizationalStructureDefined    String
+  knowsMissionVisionCriticalFactors String
   educationLevel                    EducationLevel
-  managementAdjustsStructure        Boolean
-  hasPerformanceEvaluationPolicy    Boolean
-  hasHRManagementIndicators         Boolean
-  investsInTrainingPrograms         Boolean
+  managementAdjustsStructure        String
+  hasPerformanceEvaluationPolicy    String
+  hasHRManagementIndicators         String
+  investsInTrainingPrograms         String
   performance360Evaluation          Performance360Evaluation
-  remunerationPolicyCompetitive     Boolean
-  performanceRewardExists           Boolean
+  remunerationPolicyCompetitive     String
+  performanceRewardExists           String
   managementExperience              ManagementExperience
   goalsMethodology                  String?
-  hasClearCompetencies              Boolean
+  hasClearCompetencies              String
   improvementSuggestions            String
 }
 
