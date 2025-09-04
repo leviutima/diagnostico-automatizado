@@ -17,7 +17,7 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:5173', 'https://diagnostico-automatizado-1.onrender.com/'],
+    origin: ['http://localhost:3000', 'http://localhost:5173', 'https://diagnostico-automatizado-1.onrender.com'],
     methods: 'GET, POST, PUT, DELETE, PATCH',
     credentials: true,
   });
