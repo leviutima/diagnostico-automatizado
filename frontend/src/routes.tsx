@@ -14,7 +14,7 @@ export const routes = createBrowserRouter([
     ],
   },
   {
-    path: "/diagnostico",
+    path: "/diagnostico/:id",
     element: <Diagnostico />,
   },
 ]);
