@@ -12,4 +12,7 @@ export const routes = createBrowserRouter([
       { path: "/second-form", element: <SecondForm /> },
     ],
   },
+  {
+    path: "/diagnostico"
+  }
 ]);

@@ -19,6 +19,7 @@ export function useSecondForm() {
     mutationKey: ["form"],
     mutationFn: (data: SecondFormData) => createSendVerification(data),
     onSuccess: () => {
+      form.reset()
       toast.success("Formulário enviando com sucesso")
       toast.message("O diagnóstico da sua empresa será realizada")
     }

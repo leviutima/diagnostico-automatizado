@@ -12,4 +12,12 @@ export class EnterpriseRepositoryPrisma implements EnterpriseRepository {
       data,
     });
   }
+
+  async getFormById(id: string) {
+    const form = await this.prisma.clientEnterprise.findUnique({
+      where: {id}
+    })
+
+    return form
+  }
 }

@@ -28,7 +28,7 @@ export class CreateEnterpriseUsecase {
     if (createdEnterprise) {
       const accesToken = randomUUID();
 
-      const frontEndUrl = `${process.env.FRONTEND_URL_LOCAL}/diagnostico/${id}?token=${accesToken}`;
+      const frontEndUrl = `${process.env.FRONTEND_URL}/diagnostico/${id}?token=${accesToken}`;
 
       await this.mail.sendToDiagnostic(
         enterprise,

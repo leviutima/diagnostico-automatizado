@@ -11,7 +11,7 @@ async function bootstrap() {
     basicAuth({
       challenge: true,
       users: {
-        leviutima: 'senha123',
+        'leviutima': 'senha123',
       },
     }),
   );
