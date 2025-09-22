@@ -6,26 +6,38 @@ import jsPDF from "jspdf";
 
 function translateEducation(level: string) {
   switch (level) {
-    case "ENSINO_FUNDAMENTAL": return "Ensino Fundamental";
-    case "ENSINO_MEDIO": return "Ensino Médio";
-    case "ENSINO_SUPERIOR": return "Ensino Superior";
-    default: return level;
+    case "ENSINO_FUNDAMENTAL":
+      return "Ensino Fundamental";
+    case "ENSINO_MEDIO":
+      return "Ensino Médio";
+    case "ENSINO_SUPERIOR":
+      return "Ensino Superior";
+    default:
+      return level;
   }
 }
 function translatePerformance360(value: string) {
   switch (value) {
-    case "YES": return "Sim";
-    case "NO": return "Não";
-    case "NOT_APPLICABLE": return "A empresa não faz essa avaliação";
-    default: return value;
+    case "YES":
+      return "Sim";
+    case "NO":
+      return "Não";
+    case "NOT_APPLICABLE":
+      return "A empresa não faz essa avaliação";
+    default:
+      return value;
   }
 }
 function translateManagementExperience(value: string) {
   switch (value) {
-    case "ONE_TO_FIVE_YEARS": return "1 a 5 anos";
-    case "SIX_TO_TEN_YEARS": return "6 a 10 anos";
-    case "MORE_THAN_TEN_YEARS": return "Mais de 10 anos";
-    default: return value;
+    case "ONE_TO_FIVE_YEARS":
+      return "1 a 5 anos";
+    case "SIX_TO_TEN_YEARS":
+      return "6 a 10 anos";
+    case "MORE_THAN_TEN_YEARS":
+      return "Mais de 10 anos";
+    default:
+      return value;
   }
 }
 
@@ -91,38 +103,82 @@ export function Diagnostico() {
 
   function gerarPDF() {
     const doc = new jsPDF();
-    let y = 20;
+    let y = 25;
 
-    doc.setFontSize(18);
-    doc.text("Diagnóstico Organizacional", 20, y);
-    y += 10;
+    // 🔹 Cabeçalho com faixa azul
+    doc.setFillColor(0, 82, 155);
+    doc.rect(0, 0, 210, 20, "F");
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text("Diagnóstico Organizacional", 105, 13, { align: "center" });
 
+    // Reset para corpo
+    doc.setTextColor(0, 0, 0);
     doc.setFontSize(12);
+
+    // Informações iniciais
+    doc.setFont("helvetica", "normal");
     doc.text(`Empresa: ${data.enterprise}`, 20, y);
     y += 6;
-    doc.text(`Colaborador: ${data.colaboratorName} ${data.colaboratorSurname}`, 20, y);
+    doc.text(
+      `Colaborador: ${data.colaboratorName} ${data.colaboratorSurname}`,
+      20,
+      y
+    );
     y += 10;
 
+    // 🔹 Perguntas em blocos cinza
     perguntas.forEach(([pergunta, resposta]) => {
+      // Caixa cinza clara
+      const blockHeight = 20;
+      doc.setFillColor(245, 245, 245);
+      doc.rect(15, y - 4, 180, blockHeight, "F");
+
+      // Pergunta (título azul escuro)
+      doc.setTextColor(0, 51, 102);
       doc.setFont("helvetica", "bold");
       doc.text(`${pergunta}:`, 20, y);
       y += 6;
+
+      // Resposta (texto cinza/preto)
+      doc.setTextColor(50, 50, 50);
       doc.setFont("helvetica", "normal");
       const text = doc.splitTextToSize(resposta || "Não informado", 170);
       doc.text(text, 25, y);
-      y += text.length * 6 + 4;
-      if (y > 270) {
+      y += text.length * 6 + 8;
+
+      if (y > 260) {
         doc.addPage();
-        y = 20;
+        y = 25;
       }
     });
 
+    // 🔹 Diagnóstico Final (em caixa destacada azul clara)
+    doc.setFillColor(220, 235, 250);
+    doc.rect(15, y - 4, 180, 40, "F");
+    doc.setTextColor(0, 51, 102);
     doc.setFont("helvetica", "bold");
     doc.text("Diagnóstico Final:", 20, y);
     y += 6;
-    doc.setFont("helvetica", "normal");
-    const diagText = doc.splitTextToSize(finalDiag || "Nenhum diagnóstico escrito", 170);
+    doc.setFont("helvetica", "italic");
+    doc.setTextColor(30, 30, 30);
+    const diagText = doc.splitTextToSize(
+      finalDiag || "Nenhum diagnóstico escrito",
+      170
+    );
     doc.text(diagText, 25, y);
+    y += diagText.length * 6 + 10;
+
+    // 🔹 Rodapé
+    doc.setTextColor(150, 150, 150);
+    doc.setFontSize(8);
+    doc.text(
+      "Gerado por NCM Consultoria — " + new Date().toLocaleDateString(),
+      105,
+      290,
+      { align: "center" }
+    );
 
     doc.save(`diagnostico-${data.enterprise}.pdf`);
   }
@@ -136,14 +192,20 @@ export function Diagnostico() {
           </h1>
           <p className="text-neutral-600">
             <span className="font-medium">Empresa:</span> {data.enterprise} —{" "}
-            <span className="font-medium">Colaborador:</span> {data.colaboratorName} {data.colaboratorSurname}
+            <span className="font-medium">Colaborador:</span>{" "}
+            {data.colaboratorName} {data.colaboratorSurname}
           </p>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {perguntas.map(([pergunta, resposta], i) => (
-            <div key={i} className="bg-white border border-neutral-200 rounded-xl p-6">
-              <h3 className="text-lg font-medium text-neutral-800 mb-1">{pergunta}</h3>
+            <div
+              key={i}
+              className="bg-white border border-neutral-200 rounded-xl p-6"
+            >
+              <h3 className="text-lg font-medium text-neutral-800 mb-1">
+                {pergunta}
+              </h3>
               <p className="text-neutral-600">{resposta || "Não informado"}</p>
             </div>
           ))}
@@ -151,7 +213,9 @@ export function Diagnostico() {
 
         {/* Campo de diagnóstico final */}
         <div className="bg-white border border-neutral-200 rounded-xl p-6">
-          <h2 className="text-xl font-semibold text-neutral-800 mb-3">Diagnóstico Final</h2>
+          <h2 className="text-xl font-semibold text-neutral-800 mb-3">
+            Diagnóstico Final
+          </h2>
           <textarea
             value={finalDiag}
             onChange={(e) => setFinalDiag(e.target.value)}
