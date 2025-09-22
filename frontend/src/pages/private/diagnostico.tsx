@@ -34,14 +34,16 @@ function translateManagementExperience(value: string) {
 const PAGE_W = 297;
 const PAGE_H = 210;
 
-/** Paleta */
-const BLUE_DARK    = [0, 51, 102];
-const BLUE_BANNER  = [0, 82, 155];
-const ORANGE_TOP   = [248, 167, 73];
-const ORANGE_BOTTOM= [200, 107, 17];
-const TEXT_BLACK   = [20, 20, 20];
-const TEXT_WHITE   = [255, 255, 255];
-const FOOTER_GRAY  = [120, 120, 120];
+/** Paleta (como tuplas para suportar spread em jsPDF) */
+type RGB = readonly [number, number, number];
+
+const BLUE_DARK     = [0, 51, 102] as const satisfies RGB;
+const BLUE_BANNER   = [0, 82, 155] as const satisfies RGB;
+const ORANGE_TOP    = [248, 167, 73] as const satisfies RGB;
+const ORANGE_BOTTOM = [200, 107, 17] as const satisfies RGB;
+const TEXT_BLACK    = [20, 20, 20] as const satisfies RGB;
+const TEXT_WHITE    = [255, 255, 255] as const satisfies RGB;
+const FOOTER_GRAY   = [120, 120, 120] as const satisfies RGB;
 
 /** ====================== Utils PDF ====================== */
 function gradientOrange(doc: jsPDF) {
@@ -187,7 +189,7 @@ function chartBarsExperience(dist: Record<string,number>): string {
 }
 
 /** ====================== Heurística de insight local ====================== */
-function generateInsight(question: string, answer: string) {
+function generateInsight(_question: string, answer: string) {
   const a = (answer || "").toLowerCase();
   if (!a || a === "não informado") {
     return [
@@ -419,7 +421,7 @@ export function Diagnostico() {
     addCover(doc, data.enterprise);
 
     // Pré-carrega imagens (opcional)
-    const imgs = await Promise.all(imageUrls.map(urlToDataURL));
+    const imgs = await Promise.all((imageUrls ?? []).map(urlToDataURL));
 
     // 1 slide por resposta (com sua classificação e observações)
     for (let idx = 0; idx < perguntasBase.length; idx++) {
@@ -477,7 +479,7 @@ export function Diagnostico() {
     return <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">Texto</span>;
   }
 
-  function verdictSelect(i: number, value?: Verdict) {
+  function verdictSelect(i: number) {
     return (
       <select
         value={verdicts[i] || ""}
@@ -517,7 +519,7 @@ export function Diagnostico() {
 
         {/* Toolbar */}
         <div className="bg-white border border-neutral-200 rounded-xl p-4 mb-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex col md:flex-row md:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <input
                 type="text"
@@ -597,7 +599,7 @@ export function Diagnostico() {
                       )}
                     </div>
                   </div>
-                  <div className="shrink-0">{verdictSelect(i, verdicts[i])}</div>
+                  <div className="shrink-0">{verdictSelect(i)}</div>
                 </div>
 
                 <div className="mt-4 rounded-lg bg-neutral-50 border border-neutral-200 p-4">
@@ -676,7 +678,7 @@ export function Diagnostico() {
                   value={finalDiag}
                   onChange={(e) => setFinalDiag(e.target.value)}
                   placeholder="Escreva sua análise final consolidada (executivo)..."
-                  className="mt-1 w-full min-h-[140px] border border-neutral-300 rounded-lg p-3 text-sm outline-none focus:border-blue-400"
+                  className="mt-1 w-full min-h=[140px] border border-neutral-300 rounded-lg p-3 text-sm outline-none focus:border-blue-400"
                 />
               </div>
 
